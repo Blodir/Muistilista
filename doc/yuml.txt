@@ -1,0 +1,22 @@
+﻿http://advancedkittenry.github.io
+https://github.com/Blodir/Tsoha-Bootstrap
+
+>				YUML-kaavio						<
+(	http://yuml.me/diagram/scruffy/class/draw	)
+
+[Käyttäjä|PRIMARY kayttajaID;tunnus;salasana]
+
+[AskareLista|FOREIGN kayttajaID; FOREIGN askareID]1-1[Käyttäjä]
+[AskareLista]1-*[Askare]
+
+[Askare|PRIMARY askareID;kuvaus;tarkeysaste]
+
+[AskelLista|FOREIGN askareID; FOREIGN askelID]1-1[Askare]
+
+[Askel|PRIMARY askelID;kuvaus]
+[Askel]1..*-1[AskelLista]
+
+[Luokka|PRIMARY luokkaID;nimi]
+
+[LuokkaLista|FOREIGN luokkaID; FOREIGN askareID]*-*[Luokka]
+[LuokkaLista]1-1[Askare]
