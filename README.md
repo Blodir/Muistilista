@@ -8,3 +8,9 @@ Yleisiä linkkejä:
 ## Työn aihe
 
 * [Linkki aiheeseeni](http://advancedkittenry.github.io/suunnittelu_ja_tyoymparisto/aiheet/Muistilista.html) 
+
+## HTML Suunnitelmia
+* [task_list](http://mapyma.users.cs.helsinki.fi/muistilista/tasks)
+* [task_show](http://mapyma.users.cs.helsinki.fi/muistilista/tasks/1)
+* [task_edit](http://mapyma.users.cs.helsinki.fi/muistilista/newtask)
+* [login](http://mapyma.users.cs.helsinki.fi/muistilista/login)

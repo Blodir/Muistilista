@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block content %}
+  <h1>Käyttäjän asd askareet</h1>
+
+  <p>
+    <a href="#" class="btn btn-success">Lisää askare</a>
+  </p>
+
+  <table class="table table-striped table-bordered">
+    <thead>
+      <tr>
+        <th>Nimi</th>
+        <th>Tärkeys</th>
+        <th>Luokka</th>
+        <th></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <!-- Listataan askareet tähän -->
+      <tr>
+        <td><a href="#">Imuroi kämppä</a></td>
+        <td>4</td>
+        <td>Puhtaanapito, Kotiaskareet</td>
+        <th><a class="btn btn-default btn-sm" href="#">Muokkaa</a></th>
+      </tr>
+    </tbody>
+  </table>
+{% endblock %}
