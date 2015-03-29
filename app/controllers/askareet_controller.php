@@ -22,12 +22,12 @@ class AskareetController extends BaseController {
             'kuvaus' => $params['kuvaus']
             //TODO: algoritmi joka erittelee luokat tekstistä
         ));
-        //Kint::dump($params);
+        Kint::dump($params);
         // Kutsutaan alustamamme olion save metodia, joka tallentaa olion tietokantaan
         $askare->save();
 
         // Ohjataan käyttäjä lisäyksen jälkeen pelin esittelysivulle
-        Redirect::to('/game/' . $askare->id, array('message' => 'Peli on lisätty kirjastoosi!'));
+        //Redirect::to('/askare/' . $askare->askareid, array('message' => 'Peli on lisätty kirjastoosi!'));
     }
 
 }

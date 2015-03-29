@@ -14,3 +14,10 @@ Yleisiä linkkejä:
 * [task_show](http://mapyma.users.cs.helsinki.fi/muistilista/tasks/1)
 * [task_edit](http://mapyma.users.cs.helsinki.fi/muistilista/newtask)
 * [login](http://mapyma.users.cs.helsinki.fi/muistilista/login)
+
+## Toteutuksia
+
+* [Askare lista](http://mapyma.users.cs.helsinki.fi/muistilista/askareet)
+* [Uusi askare](http://mapyma.users.cs.helsinki.fi/muistilista/askare/uusi)
+* [Askareet tietokannassa](http://mapyma.users.cs.helsinki.fi/muistilista/hiekkalaatikko)
+(askeleiden/luokkien lisäys ei toimi vielä)
