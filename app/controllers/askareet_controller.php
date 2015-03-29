@@ -18,11 +18,11 @@ class AskareetController extends BaseController {
         $params = $_POST;
         $askare = new Askare(array(
             'nimi' => $params['nimi'],
-            'tarkeysaste' => $params['tarkeysaste'],
+            'tarkeysaste' => (int) $params['tarkeysaste'],
             'kuvaus' => $params['kuvaus']
             //TODO: algoritmi joka erittelee luokat tekstistä
         ));
-        Kint::dump($params);
+        Kint::dump($askare);
         // Kutsutaan alustamamme olion save metodia, joka tallentaa olion tietokantaan
         $askare->save();
 
