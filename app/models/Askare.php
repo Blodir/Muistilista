@@ -2,7 +2,7 @@
 
 class Askare extends BaseModel {
 
-    public $askareID, $kuvaus, $tarkeysAste, $nimi;
+    public $askareid, $kuvaus, $tarkeysaste, $nimi;
 
     public function __construct($attributes) {
         parent::__construct($attributes);
@@ -21,9 +21,9 @@ class Askare extends BaseModel {
         foreach ($rows as $row) {
             // Tämä on PHP:n hassu syntaksi alkion lisäämiseksi taulukkoon :)
             $askareet[] = new Askare(array(
-                'askareID' => $row['askareID'],
+                'askareid' => $row['askareid'],
                 'kuvaus' => $row['kuvaus'],
-                'tarkeys' => $row['tarkeysAste'],
+                'tarkeysaste' => $row['tarkeysaste'],
                 'nimi' => $row['nimi']
             ));
         }
@@ -32,15 +32,15 @@ class Askare extends BaseModel {
     }
 
     public static function find($id) {
-        $query = DB::connection()->prepare('SELECT * FROM Askare WHERE askareID = :askareID LIMIT 1');
-        $query->execute(array('askareID' => $id));
+        $query = DB::connection()->prepare('SELECT * FROM Askare WHERE askareid = :askareid LIMIT 1');
+        $query->execute(array('askareid' => $id));
         $row = $query->fetch();
 
         if ($row) {
             $askare[] = new Askare(array(
-                'askareID' => $row['askareID'],
+                'askareid' => $row['askareid'],
                 'kuvaus' => $row['kuvaus'],
-                'tarkeysAste' => $row['tarkeysAste'],
+                'tarkeysaste' => $row['tarkeysaste'],
                 'nimi' => $row['nimi']
             ));
 
@@ -48,6 +48,17 @@ class Askare extends BaseModel {
         }
 
         return null;
+    }
+
+    public function save() {
+        // Lisätään RETURNING id tietokantakyselymme loppuun, niin saamme lisätyn rivin id-sarakkeen arvon
+        $query = DB::connection()->prepare('INSERT INTO Game (nimi, tarkeysaste, kuvaus) VALUES (:nimi, :tarkeysaste, :kuvaus) RETURNING askareid');
+        // Muistathan, että olion attribuuttiin pääse syntaksilla $this->attribuutin_nimi
+        $query->execute(array('name' => $this->name, 'published' => $this->published, 'publisher' => $this->publisher, 'description' => $this->description));
+        // Haetaan kyselyn tuottama rivi, joka sisältää lisätyn rivin id-sarakkeen arvon
+        $row = $query->fetch();
+        // Asetetaan lisätyn rivin id-sarakkeen arvo oliomme id-attribuutin arvoksi
+        $this->askareid = $row['askareid'];
     }
 
 }

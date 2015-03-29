@@ -28,6 +28,14 @@ $routes->get('/askareet', function() {
     AskareetController::index();
 });
 
-$routes->get('/askareet/:id', function($id){
-  GameController::show($id);
+$routes->post('/askare', function() {
+    AskareetController::store();
+});
+
+$routes->get('/askare/uusi', function() {
+    AskareetController::uusi();
+});
+
+$routes->get('/askareet/:id', function($id) {
+    AskareetController::show($id);
 });

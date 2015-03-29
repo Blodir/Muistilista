@@ -21,10 +21,11 @@
         {% for askare in askareet %}
             <tr>
                 <td><a href="{{base_path}}/askare/{{askare.id}}">{{askare.nimi}}</a></td>
-                <td>{{askare.tarkeysAste}}</td>
+                <td>{{askare.tarkeysaste}}</td>
                 <td>luokat tähän</td>
                 <th><a class="btn btn-default btn-sm" href="{{base_path}}/askare/{{askare.id}}/muokkaa">Muokkaa</a></th>
             </tr>
+        {% endfor %}
     </tbody>
 </table>
 {% endblock %}
