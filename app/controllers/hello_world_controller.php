@@ -25,7 +25,11 @@ class HelloWorldController extends BaseController {
 
     public static function sandbox() {
         // Testaa koodiasi täällä
-        View::make('helloworld.html');
+        $eka = Askare::find(1);
+        $kaikki = Askare::all();
+        
+        Kint::dump($eka);
+        Kint::dump($kaikki);
     }
 
 }

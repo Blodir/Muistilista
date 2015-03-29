@@ -23,3 +23,11 @@ $routes->get('/newtask', function() {
 $routes->get('/login', function() {
     HelloWorldController::login();
 });
+
+$routes->get('/askareet', function() {
+    AskareetController::index();
+});
+
+$routes->get('/askareet/:id', function($id){
+  GameController::show($id);
+});

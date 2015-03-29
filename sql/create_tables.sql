@@ -9,7 +9,8 @@ CREATE TABLE Kayttaja (
 CREATE TABLE Askare (
   askareID    SERIAL PRIMARY KEY,
   kuvaus      VARCHAR(1000),
-  tarkeysAste INT
+  tarkeysAste INT,
+  nimi     VARCHAR(50)
 );
  
 CREATE TABLE AskareLista (
