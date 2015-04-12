@@ -61,7 +61,21 @@ class Askare extends BaseModel {
         // Asetetaan lisätyn rivin id-sarakkeen arvo oliomme id-attribuutin arvoksi
         $this->askareid = $row['askareid'];
     }
+    
+    public function update() {
+        $query = DB::connection()->prepare('UPDATE Askare (nimi, tarkeysaste, kuvaus) VALUES (:nimi, :tarkeysaste, :kuvaus) RETURNING askareid');
+        $query->execute(array('nimi' => $this->nimi, 'tarkeysaste' => $this->tarkeysaste, 'kuvaus' => $this->kuvaus));
+        $row = $query->fetch();
+        $this->askareid = $row['askareid'];
+    }
 
+    public function delete() {
+        $query = DB::connection()->prepare('DELETE Askare (nimi, tarkeysaste, kuvaus) VALUES (:nimi, :tarkeysaste, :kuvaus) RETURNING askareid');
+        $query->execute(array('nimi' => $this->nimi, 'tarkeysaste' => $this->tarkeysaste, 'kuvaus' => $this->kuvaus));
+        $row = $query->fetch();
+        $this->askareid = $row['askareid'];
+    }
+    
     public function validate_nimi() {
         $errors = array();
         if ($this->nimi == '' || $this->nimi == null) {

@@ -11,7 +11,10 @@
   <h1>{{askare.nimi}}</h1>
   <!-- Painikkeet tähän -->
   <p>
-    <button class="btn btn-danger">Poista</button> <a href="#" class="btn btn-default">Muokkaa</a>
+    <form method="post" action="{{base_path}}/askare/{{askare.id}}/destroy" style="display: inline-block;">
+        <button type="submit" class="btn btn-danger">Poista</button>
+    </form>
+    <a href="{{base_path}}/askare/{{askare.askareid}}/muokkaa" class="btn btn-default">Muokkaa</a>
   </p>
   <!-- Tiedot tulee listana tähän -->
   <ul>

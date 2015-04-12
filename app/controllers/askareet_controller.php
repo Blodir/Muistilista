@@ -3,10 +3,13 @@
 class AskareetController extends BaseController {
 
     public static function index() {
-        // Haetaan kaikki pelit tietokannasta
         $askareet = Askare::all();
-        // Renderöidään views/game kansiossa sijaitseva tiedosto index.html muuttujan $askareet datalla
         View::make('askare/index.html', array('askareet' => $askareet));
+    }
+
+    public static function muokkaa($id) {
+        $askare = Askare::find($id);
+        View::make('askare/edit.html', array('attributes' => $askare));
     }
 
     public static function uusi() {
@@ -38,4 +41,27 @@ class AskareetController extends BaseController {
         }
     }
 
+    public static function update() {
+        $params = $_POST;
+        $askare = new Askare(array(
+            'nimi' => $params['nimi'],
+            'tarkeysaste' => (int) $params['tarkeysaste'],
+            'kuvaus' => $params['kuvaus']
+                //TODO: algoritmi joka erittelee luokat tekstistä
+        ));
+        $errors = $askare->errors();
+
+        if (count($errors) == 0) {
+            $askare->update();
+            Redirect::to('/askare/' . $askare->askareid, array('message' => 'Askareen muokkaus onnistui!'));
+        } else {
+            View::make('askare/edit.html', array('errors' => $errors, 'attributes' => $askare));
+        }
+    }
+
+    public static function destroy($id) {
+        $askare = new Askare(array('id' => $id));
+        $askare->delete();
+        Redirect::to('/askareet', array('message' => 'Askareen poistaminen onnistui!'));
+    }
 }

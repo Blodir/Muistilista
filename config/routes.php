@@ -39,3 +39,15 @@ $routes->get('/askare/uusi', function() {
 $routes->get('/askare/:id', function($id) {
     AskareetController::show($id);
 });
+
+$routes->get('/askare/:id/muokkaa', function($id){
+    AskareetController::muokkaa($id);
+});
+
+$routes->post('/askare/:id/muokkaa', function($id){
+    AskareetController::update($id);
+});
+
+$routes->post('/game/:id/destroy', function($id){
+    AskareetController::destroy($id);
+});
