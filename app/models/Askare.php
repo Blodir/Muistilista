@@ -6,6 +6,7 @@ class Askare extends BaseModel {
 
     public function __construct($attributes) {
         parent::__construct($attributes);
+        $this->validators = array('validate_nimi', 'validate_tarkeysaste', 'validate_kuvaus');
     }
 
     public static function all() {
@@ -52,13 +53,55 @@ class Askare extends BaseModel {
 
     public function save() {
         // Lisätään RETURNING id tietokantakyselymme loppuun, niin saamme lisätyn rivin id-sarakkeen arvon
-        $query = DB::connection()->prepare('INSERT INTO Game (nimi, tarkeysaste, kuvaus) VALUES (:nimi, :tarkeysaste, :kuvaus) RETURNING askareid');
+        $query = DB::connection()->prepare('INSERT INTO Askare (nimi, tarkeysaste, kuvaus) VALUES (:nimi, :tarkeysaste, :kuvaus) RETURNING askareid');
         // Muistathan, että olion attribuuttiin pääse syntaksilla $this->attribuutin_nimi
         $query->execute(array('nimi' => $this->nimi, 'tarkeysaste' => $this->tarkeysaste, 'kuvaus' => $this->kuvaus));
         // Haetaan kyselyn tuottama rivi, joka sisältää lisätyn rivin id-sarakkeen arvon
         $row = $query->fetch();
         // Asetetaan lisätyn rivin id-sarakkeen arvo oliomme id-attribuutin arvoksi
         $this->askareid = $row['askareid'];
+    }
+
+    public function validate_nimi() {
+        $errors = array();
+        if ($this->nimi == '' || $this->nimi == null) {
+            $errors[] = 'Nimi ei saa olla tyhjä!';
+        }
+        if (strlen($this->nimi) < 3) {
+            $errors[] = 'Nimen pituuden tulee olla vähintään kolme merkkiä!';
+        }
+        if (strlen($this->nimi) > 50) {
+            $errors[] = 'Nimen pituuden tulee olla alle 50 merkkiä!';
+        }
+
+        return $errors;
+    }
+    
+    public function validate_tarkeysaste() {
+        $errors = array();
+        if ($this->tarkeysaste == '' || $this->tarkeysaste == null) {
+            $errors[] = 'Aseta askareelle tärkeysaste!';
+        }
+        if (!is_numeric($this->tarkeysaste)) {
+            $errors[] = 'Tärkeysasteen täytyy olla numeerinen!';
+        }
+        if (is_numeric($this->tarkeysaste) && ($this->tarkeysaste < 1 || $this->tarkeysaste > 5)) {
+            $errors[] = 'Tärkeysasteen täytyy olla numero väliltä 1-5!';
+        }
+
+        return $errors;
+    }
+    
+    public function validate_kuvaus() {
+        $errors = array();
+        if ($this->kuvaus == '' || $this->kuvaus == null) {
+            $errors[] = 'Kuvaus ei saa olla tyhjä!';
+        }
+        if (strlen($this->kuvaus) > 1000) {
+            $errors[] = 'Kuvaus ei saa olla yli tuhat merkkiä pitkä!';
+        }
+
+        return $errors;
     }
 
 }

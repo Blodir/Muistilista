@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block content %}
+
+{% if message %}
+<div class="alert alert-success">
+    {{message}}
+</div>
+{% endif %}
+
+{% for askare in askareet %}
+  <h1>{{askare.nimi}}</h1>
+  <!-- Painikkeet tähän -->
+  <p>
+    <button class="btn btn-danger">Poista</button> <a href="#" class="btn btn-default">Muokkaa</a>
+  </p>
+  <!-- Tiedot tulee listana tähän -->
+  <ul>
+    <li><strong>Tärkeys:</strong> {{askare.tarkeysaste}}</li>
+    <li><strong>Luokka:</strong> </li>
+  </ul>
+  <!-- Kuvaus tulee tähän -->
+  <p>
+    {{askare.kuvaus}}
+  </p>
+  <h3>Askeleet</h3>
+  <ol>
+    <li>-</li>
+    <li>-</li>
+  </ol>
+{% endfor %}
+{% endblock %}

@@ -20,10 +20,10 @@
         <!-- Listataan askareet tähän -->
         {% for askare in askareet %}
             <tr>
-                <td><a href="{{base_path}}/askare/{{askare.id}}">{{askare.nimi}}</a></td>
+                <td><a href="{{base_path}}/askare/{{askare.askareid}}">{{askare.nimi}}</a></td>
                 <td>{{askare.tarkeysaste}}</td>
                 <td>luokat tähän</td>
-                <th><a class="btn btn-default btn-sm" href="{{base_path}}/askare/{{askare.id}}/muokkaa">Muokkaa</a></th>
+                <th><a class="btn btn-default btn-sm" href="{{base_path}}/askare/{{askare.askareid}}/muokkaa">Muokkaa</a></th>
             </tr>
         {% endfor %}
     </tbody>

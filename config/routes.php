@@ -36,6 +36,6 @@ $routes->get('/askare/uusi', function() {
     AskareetController::uusi();
 });
 
-$routes->get('/askareet/:id', function($id) {
+$routes->get('/askare/:id', function($id) {
     AskareetController::show($id);
 });

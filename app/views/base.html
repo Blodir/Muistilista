@@ -7,7 +7,7 @@
 
         <title>
             {% block title %}
-            Tietokantasovellus
+            Muistilista
             {% endblock %}
         </title>
 
@@ -48,10 +48,10 @@
                         <li><a href="#">Rekisteröidy</a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a href="#">Katsele askareita</a></li>
+                        <li><a href="{{base_path}}/askareet">Katsele askareita</a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a href="#">Lisää askare</a></li>
+                        <li><a href="{{base_path}}/askare/uusi">Lisää askare</a></li>
                     </ul>
                 </div>
             </div>

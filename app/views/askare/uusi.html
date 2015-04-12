@@ -1,15 +1,26 @@
 {% extends "base.html" %}
 {% block content %}
+
+{% if errors %}
+<div class="alert alert-danger">
+    <ul>
+        {% for error in errors %}
+        <li>{{error}}</li>
+        {% endfor %}
+    </ul>
+</div>
+{% endif %}
+
 <h1>Uusi askare</h1>
 
 <form method="post" action="{{base_path}}/askare">
     <div class="form-group">
         <label>Nimi</label>
-        <input name="nimi" type="text" class="form-control">
+        <input name="nimi" type="text" class="form-control" value="{{attributes.nimi}}">
     </div>
     <div class="form-group">
         <label>Tärkeys (1-5)</label>
-        <input name="tarkeysaste" type="text" class="form-control">
+        <input name="tarkeysaste" type="text" class="form-control" value="{{attributes.tarkeysaste}}">
     </div>
     <div class="form-group">
         <label>Luokka (tägit)</label>
@@ -17,7 +28,7 @@
     </div>
     <div class="form-group">
         <label>Kuvaus</label>
-        <textarea name="kuvaus" class="form-control"></textarea>
+        <textarea name="kuvaus" class="form-control">{{attributes.kuvaus}}</textarea>
     </div>
     <br>
     
