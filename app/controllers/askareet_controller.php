@@ -9,6 +9,7 @@ class AskareetController extends BaseController {
 
     public static function muokkaa($id) {
         $askare = Askare::find($id);
+        Kint::dump($askare);
         View::make('askare/edit.html', array('attributes' => $askare));
     }
 
@@ -41,7 +42,7 @@ class AskareetController extends BaseController {
         }
     }
 
-    public static function update() {
+    public static function update($id) {
         $params = $_POST;
         $askare = new Askare(array(
             'nimi' => $params['nimi'],
@@ -52,7 +53,7 @@ class AskareetController extends BaseController {
         $errors = $askare->errors();
 
         if (count($errors) == 0) {
-            $askare->update();
+            $askare->update($id);
             Redirect::to('/askare/' . $askare->askareid, array('message' => 'Askareen muokkaus onnistui!'));
         } else {
             View::make('askare/edit.html', array('errors' => $errors, 'attributes' => $askare));
@@ -61,7 +62,7 @@ class AskareetController extends BaseController {
 
     public static function destroy($id) {
         $askare = new Askare(array('id' => $id));
-        $askare->delete();
+        $askare->delete($id);
         Redirect::to('/askareet', array('message' => 'Askareen poistaminen onnistui!'));
     }
 }

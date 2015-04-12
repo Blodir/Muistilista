@@ -11,16 +11,18 @@
 </div>
 {% endif %}
 
-<h1>Muokkaa askaretta {{attributes.nimi}}</h1>
+{% for attribute in attributes %}
 
-<form method="post" action="{{base_path}}/askare">
-    <div class="form-group">
+<h1>Muokkaa askaretta {{attribute.nimi}}</h1>
+
+<form method="post" action="{{base_path}}/askare/{{attribute.askareid}}/muokkaa">
+    <div class="form-group">    
         <label>Nimi</label>
-        <input name="nimi" type="text" class="form-control" value="{{attributes.nimi}}">
+        <input name="nimi" type="text" class="form-control" value="{{attribute.nimi}}">
     </div>
     <div class="form-group">
         <label>Tärkeys (1-5)</label>
-        <input name="tarkeysaste" type="text" class="form-control" value="{{attributes.tarkeysaste}}">
+        <input name="tarkeysaste" type="text" class="form-control" value="{{attribute.tarkeysaste}}">
     </div>
     <div class="form-group">
         <label>Luokka (tägit)</label>
@@ -28,7 +30,7 @@
     </div>
     <div class="form-group">
         <label>Kuvaus</label>
-        <textarea name="kuvaus" class="form-control">{{attributes.kuvaus}}</textarea>
+        <textarea name="kuvaus" class="form-control">{{attribute.kuvaus}}</textarea>
     </div>
     <br>
     
@@ -38,4 +40,5 @@
         <button type="submit" class="btn btn-primary">Tallenna</button>
     </div>
 </form>
+{% endfor %}
 {% endblock %}

@@ -62,18 +62,15 @@ class Askare extends BaseModel {
         $this->askareid = $row['askareid'];
     }
     
-    public function update() {
-        $query = DB::connection()->prepare('UPDATE Askare (nimi, tarkeysaste, kuvaus) VALUES (:nimi, :tarkeysaste, :kuvaus) RETURNING askareid');
-        $query->execute(array('nimi' => $this->nimi, 'tarkeysaste' => $this->tarkeysaste, 'kuvaus' => $this->kuvaus));
-        $row = $query->fetch();
-        $this->askareid = $row['askareid'];
+    public function update($id) {
+        $this->askareid = $id;
+        $query = DB::connection()->prepare('UPDATE Askare SET nimi = :nimi, tarkeysAste = :tarkeysaste, kuvaus = :kuvaus WHERE askareID = :askareid RETURNING askareid');
+        $query->execute(array('nimi' => $this->nimi, 'tarkeysaste' => $this->tarkeysaste, 'kuvaus' => $this->kuvaus, 'askareid' => $this->askareid));
     }
 
-    public function delete() {
-        $query = DB::connection()->prepare('DELETE Askare (nimi, tarkeysaste, kuvaus) VALUES (:nimi, :tarkeysaste, :kuvaus) RETURNING askareid');
-        $query->execute(array('nimi' => $this->nimi, 'tarkeysaste' => $this->tarkeysaste, 'kuvaus' => $this->kuvaus));
-        $row = $query->fetch();
-        $this->askareid = $row['askareid'];
+    public function delete($id) {
+        $query = DB::connection()->prepare('DELETE FROM Askare WHERE askareid = :askareid');
+        $query->execute(array('askareid' => $id));
     }
     
     public function validate_nimi() {

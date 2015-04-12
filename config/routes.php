@@ -48,6 +48,6 @@ $routes->post('/askare/:id/muokkaa', function($id){
     AskareetController::update($id);
 });
 
-$routes->post('/game/:id/destroy', function($id){
+$routes->post('/askare/:id/destroy', function($id){
     AskareetController::destroy($id);
 });
