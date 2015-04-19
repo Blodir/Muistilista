@@ -1,3 +1,5 @@
+HUOM tarkastajalle: vko 5 vielä kokonaan tekemättä, ei tarvitse tarkastaa :)
+
 # Tietokantasovelluksen esittelysivu
 
 Yleisiä linkkejä:
