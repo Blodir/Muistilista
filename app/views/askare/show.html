@@ -19,16 +19,11 @@
   <!-- Tiedot tulee listana tähän -->
   <ul>
     <li><strong>Tärkeys:</strong> {{askare.tarkeysaste}}</li>
-    <li><strong>Luokka:</strong> </li>
+    <li><strong>Luokat: {% for luokka in luokat %}{{luokka.nimi}} {% endfor %}</strong> </li>
   </ul>
   <!-- Kuvaus tulee tähän -->
   <p>
     {{askare.kuvaus}}
   </p>
-  <h3>Askeleet</h3>
-  <ol>
-    <li>-</li>
-    <li>-</li>
-  </ol>
 {% endfor %}
 {% endblock %}

@@ -20,10 +20,10 @@ $routes->get('/newtask', function() {
     HelloWorldController::task_edit();
 });
 
-$routes->get('/login', function() {
+/*$routes->get('/login', function() {
     HelloWorldController::login();
 });
-
+*/
 $routes->get('/askareet', function() {
     AskareetController::index();
 });
@@ -50,4 +50,10 @@ $routes->post('/askare/:id/muokkaa', function($id){
 
 $routes->post('/askare/:id/destroy', function($id){
     AskareetController::destroy($id);
+});
+$routes->get('/login', function(){
+    UserController::login();
+});
+$routes->post('/login', function(){
+    UserController::handle_login();
 });

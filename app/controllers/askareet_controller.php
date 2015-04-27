@@ -19,7 +19,8 @@ class AskareetController extends BaseController {
 
     public static function show($id) {
         $askareet = Askare::find($id);
-        View::make('askare/show.html', array('askareet' => $askareet));
+        $luokat = Luokka::findAll($id);
+        View::make('askare/show.html', array('askareet' => $askareet), array('luokat' => $luokat));
     }
 
     public static function store() {
