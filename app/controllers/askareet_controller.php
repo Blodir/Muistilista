@@ -20,7 +20,7 @@ class AskareetController extends BaseController {
     public static function show($id) {
         $askareet = Askare::find($id);
         $luokat = Luokka::findAll($id);
-        View::make('askare/show.html', array('askareet' => $askareet), array('luokat' => $luokat));
+        View::make('askare/show.html', array('askareet' => $askareet, 'luokat' => $luokat));
     }
 
     public static function store() {
@@ -37,9 +37,22 @@ class AskareetController extends BaseController {
 
         if (count($errors) == 0) {
             $askare->save();
+            AskareetController::jaaLuokkiin($askare->askareid, $params['luokat']);
             Redirect::to('/askare/' . $askare->askareid, array('message' => 'Askareen lisäys onnistui!'));
         } else {
             View::make('askare/uusi.html', array('errors' => $errors, 'attributes' => $askare));
+        }
+    }
+    
+    public static function jaaLuokkiin($askareid, $luokkajono) {
+        $luokkanimet = explode(' ', $luokkajono);
+        foreach ($luokkanimet as $luokkanimi) {
+            if (Luokka::findByNimi($luokkanimi) != NULL) {
+                LuokkaLista::save($askareid, Luokka::findByNimi($luokkanimi)->luokkaid);
+            } else {
+                $luokkaid = Luokka::save($luokkanimi);
+                LuokkaLista::save($askareid, $luokkaid);
+            }
         }
     }
 
@@ -49,7 +62,6 @@ class AskareetController extends BaseController {
             'nimi' => $params['nimi'],
             'tarkeysaste' => (int) $params['tarkeysaste'],
             'kuvaus' => $params['kuvaus']
-                //TODO: algoritmi joka erittelee luokat tekstistä
         ));
         $errors = $askare->errors();
 

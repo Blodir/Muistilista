@@ -20,19 +20,6 @@ CREATE TABLE AskareLista (
   FOREIGN KEY (askareID) REFERENCES Askare (askareID)
 );
  
-CREATE TABLE Askel (
-  askelID SERIAL PRIMARY KEY,
-  kuvaus  VARCHAR(1000)
-);
- 
-CREATE TABLE AskelLista (
-  askareID INT,
-  askelID  INT,
-  jarjestys INT,
-  FOREIGN KEY (askareID) REFERENCES Askare (askareID),
-  FOREIGN KEY (askelID) REFERENCES Askel (askelID)
-);
- 
 CREATE TABLE Luokka (
   luokkaID SERIAL PRIMARY KEY,
   nimi     VARCHAR(50)

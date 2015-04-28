@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
-<h1>Käyttäjän {{user_logged_in.name}} askareet</h1>
+<h1>Käyttäjän {{user_logged_in.kayttajatunnus}} askareet</h1>
 
 <p>
     <a href="{{base_path}}/askare/uusi" class="btn btn-success">Lisää askare</a>
@@ -11,7 +11,6 @@
         <tr>
             <th>Nimi</th>
             <th>Tärkeys</th>
-            <th>Luokka</th>
             <th></th>
         </tr>
     </thead>
@@ -22,8 +21,7 @@
             <tr>
                 <td><a href="{{base_path}}/askare/{{askare.askareid}}">{{askare.nimi}}</a></td>
                 <td>{{askare.tarkeysaste}}</td>
-                <td>luokat tähän</td>
-                <th><a class="btn btn-default btn-sm" href="{{base_path}}/askare/{{askare.askareid}}/muokkaa">Muokkaa</a></th>
+                <td><a class="btn btn-default btn-sm" href="{{base_path}}/askare/{{askare.askareid}}/muokkaa">Muokkaa</a></td>
             </tr>
         {% endfor %}
     </tbody>

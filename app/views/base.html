@@ -41,18 +41,22 @@
                         <!-- Navigaation linkit -->
                         <li><a href="{{base_path}}">Etusivu</a></li>
                     </ul>
-                    <ul class="nav navbar-nav navbar-right">
-                        <li><a href="{{base_path}}/login">Kirjaudu sisään</a></li>
-                    </ul>
-                    <ul class="nav navbar-nav navbar-right">
-                        <li><a href="#">Rekisteröidy</a></li>
-                    </ul>
+                    {% if user_logged_in %}
                     <ul class="nav navbar-nav navbar-right">
                         <li><a href="{{base_path}}/askareet">Katsele askareita</a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         <li><a href="{{base_path}}/askare/uusi">Lisää askare</a></li>
                     </ul>
+                    {% else %}
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="{{base_path}}/login">Kirjaudu sisään</a></li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="#">Rekisteröidy</a></li>
+                    </ul>
+                    {% endif %}
+                    
                 </div>
             </div>
         </nav>

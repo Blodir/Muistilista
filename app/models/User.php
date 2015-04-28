@@ -29,7 +29,7 @@ class User extends BaseModel {
         $row = $query->fetch();
 
         if ($row) {
-            $kayttaja[] = new User(array(
+            $kayttaja = new User(array(
                 'kayttajaid' => $row['kayttajaid'],
                 'kayttajatunnus' => $row['kayttajatunnus'],
                 'salasana' => $row['salasana']
