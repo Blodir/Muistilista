@@ -3,14 +3,18 @@
 class AskareetController extends BaseController {
 
     public static function index() {
-        $askareet = Askare::all();
+        $askareet = Askare::all(BaseController::get_user_logged_in()->kayttajaid);
         View::make('askare/index.html', array('askareet' => $askareet));
     }
 
     public static function muokkaa($id) {
         $askare = Askare::find($id);
-        Kint::dump($askare);
-        View::make('askare/edit.html', array('attributes' => $askare));
+        $luokat = Luokka::findAll($id);
+        $string = '';
+        foreach ($luokat as $luokka) {
+            $string .= $luokka->nimi . ' ';
+        }
+        View::make('askare/edit.html', array('attributes' => $askare, 'luokat' => $string));
     }
 
     public static function uusi() {
@@ -24,19 +28,19 @@ class AskareetController extends BaseController {
     }
 
     public static function store() {
-        // POST-pyynnön muuttujat sijaitsevat $_POST nimisessä assosiaatiolistassa
         $params = $_POST;
         $askare = new Askare(array(
             'nimi' => $params['nimi'],
             'tarkeysaste' => (int) $params['tarkeysaste'],
             'kuvaus' => $params['kuvaus']
-                //TODO: algoritmi joka erittelee luokat tekstistä
         ));
-        //Kint::dump($askare);
         $errors = $askare->errors();
 
         if (count($errors) == 0) {
             $askare->save();
+            
+            LuokkaLista::save($askare->askareid, BaseController::get_user_logged_in()->kayttajaid);
+            
             AskareetController::jaaLuokkiin($askare->askareid, $params['luokat']);
             Redirect::to('/askare/' . $askare->askareid, array('message' => 'Askareen lisäys onnistui!'));
         } else {
@@ -55,6 +59,21 @@ class AskareetController extends BaseController {
             }
         }
     }
+    
+    public static function jaaLuokkiinUpdate($askareid, $luokkajono) {
+        LuokkaLista::delete($askareid);
+        $luokkanimet = explode(' ', $luokkajono);
+        foreach ($luokkanimet as $luokkanimi) {
+            if (Luokka::findByNimi($luokkanimi) != NULL) {
+                if (LuokkaLista::findOne($askareid, Luokka::findByNimi($luokkanimi)->luokkaid) === null) {
+                    LuokkaLista::save($askareid, Luokka::findByNimi($luokkanimi)->luokkaid);
+                }
+            } else {
+                $luokkaid = Luokka::save($luokkanimi);
+                LuokkaLista::save($askareid, $luokkaid);
+            }
+        }
+    }
 
     public static function update($id) {
         $params = $_POST;
@@ -65,8 +84,11 @@ class AskareetController extends BaseController {
         ));
         $errors = $askare->errors();
 
+        AskareetController::jaaLuokkiinUpdate($id, $params['luokat']);
+            
         if (count($errors) == 0) {
             $askare->update($id);
+            
             Redirect::to('/askare/' . $askare->askareid, array('message' => 'Askareen muokkaus onnistui!'));
         } else {
             View::make('askare/edit.html', array('errors' => $errors, 'attributes' => $askare));
@@ -74,7 +96,7 @@ class AskareetController extends BaseController {
     }
 
     public static function destroy($id) {
-        $askare = new Askare(array('id' => $id));
+        $askare = new Askare(array());
         $askare->delete($id);
         Redirect::to('/askareet', array('message' => 'Askareen poistaminen onnistui!'));
     }

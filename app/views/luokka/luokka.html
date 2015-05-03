@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block content %}
+
+{% if message %}
+<div class="alert alert-success">
+    {{message}}
+</div>
+{% endif %}
+
+<h1>Luokka: {{luokka.nimi}}</h1>
+<!-- Painikkeet tähän -->
+
+<form method="post" action="{{base_path}}/luokka/{{luokka.luokkaid}}/destroy" style="display: inline-block;">
+    <button type="submit" class="btn btn-danger">Poista</button>
+</form>
+<a href="{{base_path}}/luokka/{{luokka.luokkaid}}/muokkaa" class="btn btn-default">Muokkaa</a>
+<br>
+<br>
+<ul>
+{% for askare in askareet %}
+<li><a href="{{base_path}}/askare/{{askare.askareid}}">{{askare.nimi}}</a></li>
+{% endfor %}
+</ul>
+{% endblock %}

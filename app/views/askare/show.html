@@ -19,7 +19,7 @@
   <!-- Tiedot tulee listana tähän -->
   <ul>
     <li><strong>Tärkeys:</strong> {{askare.tarkeysaste}}</li>
-    <li><strong>Luokat:</strong> {% for luokka in luokat %}{{luokka.nimi}} {% endfor %}</li>
+    <li><strong>Luokat:</strong> {% for luokka in luokat %}<a href="{{base_path}}/luokka/{{luokka.luokkaid}}">{{luokka.nimi}}</a> {% endfor %}</li>
   </ul>
   <!-- Kuvaus tulee tähän -->
   <p>

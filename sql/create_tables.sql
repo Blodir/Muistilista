@@ -23,11 +23,11 @@ CREATE TABLE AskareLista (
 CREATE TABLE Luokka (
   luokkaID SERIAL PRIMARY KEY,
   nimi     VARCHAR(50)
-);
+);  
  
 CREATE TABLE LuokkaLista (
   luokkaID INT,
   askareID INT,
-  FOREIGN KEY (luokkaID) REFERENCES Luokka (luokkaID),
-  FOREIGN KEY (askareID) REFERENCES Askare (askareID)
+  FOREIGN KEY (luokkaID) REFERENCES Luokka (luokkaID) ON DELETE CASCADE,
+  FOREIGN KEY (askareID) REFERENCES Askare (askareID) ON DELETE CASCADE
 );

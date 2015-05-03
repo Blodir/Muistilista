@@ -9,18 +9,13 @@ class Askare extends BaseModel {
         $this->validators = array('validate_nimi', 'validate_tarkeysaste', 'validate_kuvaus');
     }
 
-    public static function all() {
-        // Alustetaan kysely tietokantayhteydellämme
-        $query = DB::connection()->prepare('SELECT * FROM Askare');
-        // Suoritetaan kysely
-        $query->execute();
-        // Haetaan kyselyn tuottamat rivit
+    public static function all($kayttajaid) {
+        $query = DB::connection()->prepare('SELECT A.askareid, kuvaus, tarkeysaste, nimi FROM AskareLista AL, Askare A WHERE kayttajaid = :kayttajaid AND A.askareid = AL.askareid');
+        $query->execute(array('kayttajaid' => $kayttajaid));
         $rows = $query->fetchAll();
         $askareet = array();
 
-        // Käydään kyselyn tuottamat rivit läpi
         foreach ($rows as $row) {
-            // Tämä on PHP:n hassu syntaksi alkion lisäämiseksi taulukkoon :)
             $askareet[] = new Askare(array(
                 'askareid' => $row['askareid'],
                 'kuvaus' => $row['kuvaus'],
@@ -52,13 +47,9 @@ class Askare extends BaseModel {
     }
 
     public function save() {
-        // Lisätään RETURNING id tietokantakyselymme loppuun, niin saamme lisätyn rivin id-sarakkeen arvon
         $query = DB::connection()->prepare('INSERT INTO Askare (nimi, tarkeysaste, kuvaus) VALUES (:nimi, :tarkeysaste, :kuvaus) RETURNING askareid');
-        // Muistathan, että olion attribuuttiin pääse syntaksilla $this->attribuutin_nimi
         $query->execute(array('nimi' => $this->nimi, 'tarkeysaste' => $this->tarkeysaste, 'kuvaus' => $this->kuvaus));
-        // Haetaan kyselyn tuottama rivi, joka sisältää lisätyn rivin id-sarakkeen arvon
         $row = $query->fetch();
-        // Asetetaan lisätyn rivin id-sarakkeen arvo oliomme id-attribuutin arvoksi
         $this->askareid = $row['askareid'];
     }
     

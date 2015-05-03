@@ -9,25 +9,25 @@
 </div>
 {% endif %}
 {% if message %}
-<div class="alert alert-success">
+<div class="alert alert-danger">
     <ul>
         <li>{{message}}</li>
     </ul>
 </div>
 {% endif %}
 
-<h1>Kirjaudu sisään</h1>
-<form method="post" action="{{base_path}}/login">
+<h1>Rekisteröityminen</h1>
+<form method="post" action="{{base_path}}/register">
     <div class="form-group">
         <label>Käyttäjätunnus</label>
-        <input type="text" class="form-control" name="username" value="{{username}}">
+        <input type="text" class="form-control" name="kayttajatunnus" value="{{username}}">
     </div>
 
     <div class="form-group">
         <label>Salasana</label>
-        <input type="password" class="form-control" name="password">
+        <input type="password" class="form-control" name="salasana">
     </div>
 
-    <button type="submit" class="btn btn-primary">Kirjaudu sisään</button>
+    <button type="submit" class="btn btn-primary">Rekisteröidy</button>
 </form>
 {% endblock %}

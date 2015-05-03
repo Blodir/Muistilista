@@ -7,6 +7,13 @@ class User extends BaseModel {
     public function __construct($attribuutit) {
         parent::__construct($attribuutit);
     }
+    
+    public function save() {
+        $query = DB::connection()->prepare('INSERT INTO Kayttaja (kayttajaTunnus, salasana) VALUES (:kayttajatunnus, :salasana) RETURNING kayttajaid;');
+        $query->execute(array('kayttajatunnus' => $this->kayttajatunnus, 'salasana' => $this->salasana));
+        $row = $query->fetch();
+        $this->kayttajaid = $row['kayttajaid'];
+    }
 
     public static function authenticate($username, $password) {
         $query = DB::connection()->prepare('SELECT * FROM Kayttaja WHERE kayttajaTunnus = :kayttajatunnus AND salasana = :salasana LIMIT 1');
@@ -39,6 +46,10 @@ class User extends BaseModel {
         }
 
         return null;    
+    }
+    
+    public function errors() {
+        
     }
 
 }
