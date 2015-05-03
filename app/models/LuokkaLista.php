@@ -19,8 +19,8 @@ class LuokkaLista extends BaseModel {
     }
 
     public static function findAll($luokkaid) {
-        $query = DB::connection()->prepare('SELECT A.askareID, kuvaus, tarkeysAste, nimi FROM LuokkaLista LL, Askare A, AskareLista AL WHERE luokkaID = :luokkaid AND LL.askareID=A.askareID AND LL.askareID=AL.askareID');
-        $query->execute(array('luokkaid' => $luokkaid));
+        $query = DB::connection()->prepare('SELECT A.askareID, kuvaus, tarkeysAste, nimi FROM LuokkaLista LL, Askare A, AskareLista AL WHERE luokkaID = :luokkaid AND LL.askareID=A.askareID AND LL.askareID=AL.askareID AND AL.kayttajaID = :kayttajaid');
+        $query->execute(array('luokkaid' => $luokkaid, 'kayttajaid' => BaseController::get_user_logged_in()->kayttajaid)); 
         $rows = $query->fetchAll();
         $askareet = array();
         foreach ($rows as $row) {

@@ -44,7 +44,7 @@ class AskareetController extends BaseController {
             AskareetController::jaaLuokkiin($askare->askareid, $params['luokat']);
             Redirect::to('/askare/' . $askare->askareid, array('message' => 'Askareen lisäys onnistui!'));
         } else {
-            View::make('askare/uusi.html', array('errors' => $errors, 'attributes' => $askare));
+            View::make('askare/uusi.html', array('errors' => $errors, 'attributes' => $askare, 'luokat' => $params['luokat']));
         }
     }
     
