@@ -1,5 +1,4 @@
--- Lisää INSERT INTO lauseet tähän tiedostoon
-INSERT INTO Askare (askareID, kuvaus, tarkeysAste, nimi) VALUES ('1', 'kuvailua', '5', 'testinimi');
-INSERT INTO Kayttaja (kayttajaID, kayttajaTunnus, salasana) VALUES ('1', 'testi', 'testi');
-INSERT INTO Luokka (luokkaID, nimi) VALUES ('1', 'asd');
-INSERT INTO LuokkaLista (luokkaID, askareID) VALUES ('1', '1');
+INSERT INTO Askare (kuvaus, tarkeysAste, nimi) VALUES ('kuvailua', '5', 'testinimi');
+INSERT INTO Kayttaja (kayttajaTunnus, salasana) VALUES ('testi', 'testi');
+INSERT INTO Luokka (nimi) VALUES ('asd');
+INSERT INTO LuokkaLista (luokkaID, askareID) VALUES ((SELECT luokkaID FROM Luokka WHERE nimi = 'asd'), (SELECT askareID FROM Askare WHERE nimi = 'testinimi'));

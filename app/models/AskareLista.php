@@ -14,7 +14,7 @@ class AskareLista extends BaseModel {
     }
 
     public static function save($askareid, $kayttajaid) {
-        $query = DB::connection()->prepare('INSERT INTO LuokkaLista VALUES (:kayttajaid, :askareid)');
+        $query = DB::connection()->prepare('INSERT INTO AskareLista VALUES (:kayttajaid, :askareid)');
         $query->execute(array('askareid' => $askareid, 'kayttajaid' => $kayttajaid));
     }
 

@@ -39,7 +39,7 @@ class AskareetController extends BaseController {
         if (count($errors) == 0) {
             $askare->save();
             
-            LuokkaLista::save($askare->askareid, BaseController::get_user_logged_in()->kayttajaid);
+            AskareLista::save($askare->askareid, BaseController::get_user_logged_in()->kayttajaid);
             
             AskareetController::jaaLuokkiin($askare->askareid, $params['luokat']);
             Redirect::to('/askare/' . $askare->askareid, array('message' => 'Askareen lisäys onnistui!'));
